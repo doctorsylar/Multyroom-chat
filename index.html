@@ -23,8 +23,6 @@
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
-    let socket = io();
-    socket.on('message', printMsg);
     window.onload = function () {
         document.querySelector('#msg-form').addEventListener('submit', formSubmitHandler);
         function formSubmitHandler(event) {
@@ -33,11 +31,13 @@
             socket.emit('message', msg.value);
             msg.value = '';
         }
+        let socket = io();
+        socket.on('message', printMsg);
+        function printMsg (msg) {
+            let messages = document.querySelector('#messages');
+            messages.innerHTML = messages.innerHTML + '<li>' + msg + '</li>';
+        }
     };
-    function printMsg (msg) {
-        let messages = document.querySelector('#messages');
-        messages.innerHTML = messages.innerHTML + '<li>' + msg + '</li>';
-    }
 </script>
 </body>
 </html>
