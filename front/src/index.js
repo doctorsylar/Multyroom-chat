@@ -1,10 +1,17 @@
+'use strict';
+import '../dist/index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import '../dist/index.css';
+// import '../../node_modules/socket.io-client/dist/socket.io';
 
-const title = 'Workszzzzzssss';
+// JS CODE
+document.querySelector('#plus-room').onclick = createNewChatRoom;
+function createNewChatRoom() {
+    console.log(document.querySelector('#plus-name').value);
+}
+// socket.io
+// let socket = io();
 
-ReactDOM.render(
-<div><h1>{title}</h1></div>,
-document.getElementById('app')
-);
+
+// Rendering RoomList component
+// ReactDOM.render(document.getElementById('app'));
