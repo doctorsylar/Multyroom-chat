@@ -1,21 +1,14 @@
 {
-  "name": "fs-task",
-  "version": "1.0.0",
-  "description": "Simple node.js chat test task",
+  "name": "react-chat",
+  "version": "0.1.0",
+  "description": "Node.js chat with React frontend",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/doctorsylar/fs-task.git"
-  },
+  "keywords": [],
   "author": "Andrey Izotov",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/doctorsylar/fs-task/issues"
-  },
-  "homepage": "https://github.com/doctorsylar/fs-task#readme",
   "dependencies": {
     "express": "^4.16.4",
     "socket.io": "^2.2.0"
