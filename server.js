@@ -8,15 +8,15 @@ let io = require('socket.io')(http);
 let port = process.env.PORT || 3000;
 
 // Routing
-app.use(express.static(path.join(__dirname, 'front/dist')));
+app.use(express.static(path.join(__dirname, 'client/dist')));
 
 app.get('/', function (req, res) {
 
-    res.sendFile(path.resolve(__dirname, 'front/dist', 'index.html'));
+    res.sendFile(path.resolve(__dirname, 'client/dist', 'index.html'));
 });
 
 app.get('/:id', function (req, res) {
-    res.sendFile(path.resolve(__dirname, 'front/dist', 'room.html'));
+    res.sendFile(path.resolve(__dirname, 'client/dist', 'room.html'));
 });
 io.on('connection', function(socket) {
     // socket.on('message', function(msg){
