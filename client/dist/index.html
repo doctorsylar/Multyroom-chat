@@ -7,11 +7,11 @@
 <main>
     <h1>Express + React.js chat webapp</h1>
     <div class="rooms">
-        <div class="room-adder">
+        <form class="room-adder">
             <input type="text" id="plus-name" placeholder="New room name...">
-            <button id="plus-room">New chatroom +</button>
-        </div>
-        <ul id="rooms-list"></ul>
+            <input type="submit" id="plus-room" title="New chatroom" value="+">
+        </form>
+        <div id="rooms-container"></div>
     </div>
 </main>
 

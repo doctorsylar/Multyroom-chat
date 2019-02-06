@@ -2,6 +2,7 @@
 import '../dist/index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import RoomList from './components/rooms-list';
 // import '../../node_modules/socket.io-client/dist/socket.io';
 
 // JS CODE
@@ -17,15 +18,17 @@ window.onload = function () {
         console.log(document.querySelector('#plus-name').value);
     }
     document.querySelector('#username-form').onsubmit = submitUsername;
+    document.querySelector('.room-adder').onsubmit = addNewChatroom;
 };
 
 
 // socket.io
 // let socket = io();
 
+let appRoomsList = ['abc', 'bab123', 'bao bab', 'k0s2-xss   '];
 
 // Rendering RoomList component
-// ReactDOM.render(document.getElementById('app'));
+ReactDOM.render(<RoomList rooms={appRoomsList}/>, document.querySelector('#rooms-container'));
 
 // functions
 function checkUsername() {
@@ -46,4 +49,8 @@ function submitUsername(event) {
     else {
         usernameField.value = '';
     }
+}
+function addNewChatroom(event) {
+    event.preventDefault();
+
 }

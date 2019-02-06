@@ -15,7 +15,7 @@ app.get('/', function (req, res) {
     res.sendFile(path.resolve(__dirname, 'client/dist', 'index.html'));
 });
 
-app.get('/:id', function (req, res) {
+app.get('/*', function (req, res) {
     res.sendFile(path.resolve(__dirname, 'client/dist', 'room.html'));
 });
 io.on('connection', function(socket) {

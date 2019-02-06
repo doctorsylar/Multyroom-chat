@@ -60,3 +60,59 @@ main {
     margin: 0 auto;
     text-align: center;
 }
+main h1 {
+    padding: 20px 20px 0;
+}
+main .rooms {
+    max-width: 300px;
+    margin: 0 auto;
+}
+main .room-adder {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+main .room-adder input:first-child {
+    padding: 6px 8px;
+    vertical-align: bottom;
+    border: 0;
+    border-bottom: 2px dashed #111111;
+    background-color: transparent;
+}
+main .room-adder input:last-child {
+    background-color: transparent;
+    padding: 2px 7px;
+    font-size: 1.2rem;
+    border: 2px dashed #111111;
+    border-radius: 15px;
+    vertical-align: bottom;
+    cursor: pointer;
+    transition:0.25s background-color;
+}
+main .room-adder input:last-child:hover {
+    background-color: #00dcff;
+}
+/* rooms */
+main #rooms-container {
+    padding: 10px 20px 20px;
+}
+main #rooms-container ul {
+    list-style: none;
+}
+main #rooms-container ul li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2px;
+}
+main #rooms-container ul li a {
+    text-decoration: none;
+    color: #111111;
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0 4px;
+}
+main #rooms-container ul li a:hover,
+main #rooms-container ul li a:active {
+    color: #8067ff;
+}
