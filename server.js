@@ -8,24 +8,23 @@ let io = require('socket.io')(http);
 let port = process.env.PORT || 3000;
 
 // Routing
-app.use(express.static(path.join(__dirname, 'client/dist')));
+app.use(express.static(path.join(__dirname, 'client/min')));
 
-app.get('/', function (req, res) {
-
+app.all('/', function (req, res) {
     res.sendFile(path.resolve(__dirname, 'client/dist', 'index.html'));
 });
 
-app.get('/*', function (req, res) {
+app.all('/*', function (req, res) {
     res.sendFile(path.resolve(__dirname, 'client/dist', 'room.html'));
 });
 io.on('connection', function(socket) {
-    // socket.on('message', function(msg){
-    //     console.log('message: ' + msg);
-    //     io.emit('message', msg);
-    // });
+    socket.on('delete', (msg, fn) => {
+        console.log('client asked to delete: ' + msg);
+        fn('Okay, i\'ll delete this room named ' + msg);
+    });
     console.log('New connection');
 });
 
-app.listen(port, function(){
+http.listen(port, function(){
     console.log('listening on port: ' + port);
 });

@@ -98,6 +98,7 @@ main #rooms-container {
 }
 main #rooms-container ul {
     list-style: none;
+    padding: 0 20px;
 }
 main #rooms-container ul li {
     display: flex;

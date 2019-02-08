@@ -3,7 +3,6 @@ import '../dist/index.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import RoomList from './components/rooms-list';
-// import '../../node_modules/socket.io-client/dist/socket.io';
 
 // JS CODE
 // variables
@@ -12,13 +11,8 @@ let sessionStorage = window.sessionStorage;
 // after loading page
 window.onload = function () {
     checkUsername();
-    // adding new room
-    document.querySelector('#plus-room').onclick = createNewChatRoom;
-    function createNewChatRoom() {
-        console.log(document.querySelector('#plus-name').value);
-    }
+    // submitting username
     document.querySelector('#username-form').onsubmit = submitUsername;
-    document.querySelector('.room-adder').onsubmit = addNewChatroom;
 };
 
 
@@ -26,7 +20,7 @@ window.onload = function () {
 // let socket = io();
 
 let appRoomsList = ['abc', 'bab123', 'bao bab', 'k0s2-xss   '];
-
+let roomList = <RoomList rooms={appRoomsList} />;
 // Rendering RoomList component
 ReactDOM.render(<RoomList rooms={appRoomsList}/>, document.querySelector('#rooms-container'));
 
@@ -50,7 +44,11 @@ function submitUsername(event) {
         usernameField.value = '';
     }
 }
-function addNewChatroom(event) {
-    event.preventDefault();
-
-}
+// function addNewChatroom(event) {
+//     event.preventDefault();
+//     let chatroom = event.target.children[0];
+//     if (chatroom.value.trim() !== '') {
+//         RoomList.prototype.addNewRoom(chatroom.value.trim());
+//     }
+//     chatroom.value = '';
+// }
