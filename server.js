@@ -20,7 +20,8 @@ app.all('/*', function (req, res) {
 io.on('connection', function(socket) {
     socket.on('delete', (msg, fn) => {
         console.log('client asked to delete: ' + msg);
-        fn('Okay, i\'ll delete this room named ' + msg);
+        fn('Success');
+        // fn('Okay, i\'ll delete room named ' + msg);
     });
     console.log('New connection');
 });

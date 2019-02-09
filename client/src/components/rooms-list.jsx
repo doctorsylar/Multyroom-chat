@@ -2,8 +2,11 @@ import React, {Component} from 'react';
 import { CSSTransition } from 'react-transition-group';
 import io from 'socket.io-client';
 
-const socket = io('http://localhost:3000');
-console.log('socket created');
+const socket = io();
+
+window.onload = function () {
+
+};
 
 function RoomAdder (props) {
     return (
@@ -19,13 +22,6 @@ class RoomsList extends Component{
     constructor(props) {
         super(props);
     }
-    deleteRoom = (event) => {
-        console.log(event.target.getAttribute('data-roomname'));
-        socket.emit('delete', event.target.getAttribute('data-roomname'),
-            (data) => {
-            console.log(data);
-        });
-    };
     render() {
         let list = [];
         this.props.rooms.forEach((room) => {
@@ -34,7 +30,7 @@ class RoomsList extends Component{
                 <li className='roomslist-item'>
                     <a href={room}>{room}</a>
                     <button title='delete room'
-                            onClick={this.deleteRoom}
+                            onClick={this.props.deleteRoom}
                             data-roomname={room}
                     >-</button>
                 </li>
@@ -66,14 +62,29 @@ class RoomsApp extends Component {
             event.target.children[0].value = '';
         }
     };
+    deleteRoom = (event) => {
+        console.log(event.target.getAttribute('data-roomname'));
+        let roomname = event.target.getAttribute('data-roomname');
+        socket.emit('delete', roomname,
+            (data) => {
+                if (data === 'Success') {
+                    let roomsArray = this.state.rooms;
+                    let deletedIndex = roomsArray.indexOf(roomname);
+                    roomsArray.splice(deletedIndex, 1);
+                    this.setState({
+                        rooms: roomsArray
+                    });
+                }
+            });
+    };
     render() {
         return(
             <div className="rooms-app">
                 <RoomAdder submitting={this.addNewRoom}
-                >
-
-                </RoomAdder>
-                <RoomsList rooms={this.state.rooms}/>
+                ></RoomAdder>
+                <RoomsList rooms={this.state.rooms}
+                           deleteRoom={this.deleteRoom}
+                />
             </div>
         )
     }

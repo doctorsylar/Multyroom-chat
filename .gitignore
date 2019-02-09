@@ -55,4 +55,5 @@ fabric.properties
 
 .idea/
 node_modules/
+client/min/
 package-lock.json
