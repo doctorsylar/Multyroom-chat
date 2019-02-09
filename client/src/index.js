@@ -19,10 +19,10 @@ window.onload = function () {
 // socket.io
 // let socket = io();
 
-let appRoomsList = ['abc', 'bab123', 'bao bab', 'k0s2-xss   '];
+let appRoomsList = [];
 let roomList = <RoomList rooms={appRoomsList} />;
 // Rendering RoomList component
-ReactDOM.render(<RoomList rooms={appRoomsList}/>, document.querySelector('#rooms-container'));
+ReactDOM.render(<RoomList rooms={appRoomsList} />, document.querySelector('#rooms-container'));
 
 // functions
 function checkUsername() {

@@ -4,10 +4,6 @@ import io from 'socket.io-client';
 
 const socket = io();
 
-window.onload = function () {
-
-};
-
 function RoomAdder (props) {
     return (
         <form className="room-adder" onSubmit={props.submitting}>
@@ -50,22 +46,41 @@ class RoomsApp extends Component {
             rooms: props.rooms
         };
     }
+    componentDidMount() {
+        socket.emit('roomsAppInitialized', '', (data) => {
+            this.setState({
+                rooms: data
+            });
+        });
+        socket.on('roomsListChanged', (roomsList) => {
+            console.log('got broadcasted event');
+            this.setState({
+                rooms: roomsList
+            });
+        });
+    }
     addNewRoom = (event) => {
         event.preventDefault();
         let inpField = event.target.children[0];
-        if (inpField.value.trim() !== '') {
-            let roomsArray = this.state.rooms;
-            roomsArray.push(inpField.value);
-            this.setState({
-                rooms: roomsArray
-            });
+        let inputValue = inpField.value.trim().replace(/ /g, '_');
+        if (inputValue !== '' && this.state.rooms.indexOf(inputValue) === -1) {
             event.target.children[0].value = '';
+            socket.emit('addNewRoom', inputValue,
+                (data) => {
+                    if (data === 'Success') {
+                        let roomsArray = this.state.rooms;
+                        roomsArray.push(inputValue);
+                        this.setState({
+                            rooms: roomsArray
+                        });
+                    }
+                });
         }
     };
     deleteRoom = (event) => {
         console.log(event.target.getAttribute('data-roomname'));
         let roomname = event.target.getAttribute('data-roomname');
-        socket.emit('delete', roomname,
+        socket.emit('deleteRoom', roomname,
             (data) => {
                 if (data === 'Success') {
                     let roomsArray = this.state.rooms;
