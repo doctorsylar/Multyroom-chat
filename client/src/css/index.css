@@ -2,7 +2,6 @@ html, body, * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /*font-family: sans-serif;*/
 }
 /* overlay */
 #overlay {
@@ -56,7 +55,7 @@ html, body, * {
 /* main */
 main {
     max-width: 600px;
-    background-color: #82ffff;
+    background-color: #a8fff5;
     margin: 0 auto;
     text-align: center;
 }
@@ -100,12 +99,12 @@ main #rooms-container ul {
     list-style: none;
     padding: 0 20px;
 }
-main #rooms-container ul li {
+main #rooms-container ul .room {
     display: flex;
     justify-content: space-between;
     margin-bottom: 2px;
 }
-main #rooms-container ul li a {
+main #rooms-container ul .room a {
     text-decoration: none;
     color: #111111;
     display: block;
@@ -113,7 +112,19 @@ main #rooms-container ul li a {
     text-align: left;
     padding: 0 4px;
 }
-main #rooms-container ul li a:hover,
-main #rooms-container ul li a:active {
+main #rooms-container ul .room:hover a,
+main #rooms-container ul .room a:active {
     color: #8067ff;
+}
+main #rooms-container ul .room button {
+    padding: 1px 10px;
+    background-color: transparent;
+    border: 1px dotted;
+    cursor: pointer;
+    font-size: 1.3rem;
+    transition: 0.25s color;
+}
+main #rooms-container ul .room button:hover {
+    color: #af0006;
+    border-color: #af0006;
 }

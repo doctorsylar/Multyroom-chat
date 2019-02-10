@@ -14,6 +14,26 @@ function RoomAdder (props) {
     )
 }
 
+function Room (props) {
+    return (
+        <CSSTransition in={props.show}
+                       classNames="room"
+                       timeout={800}
+                       unmountOnExit
+        >
+            {status => (
+                <li className='room'>
+                    <a href={props.roomname}>{props.roomname}</a>
+                    <button title='delete room'
+                            onClick={props.deleteRoom}
+                            data-roomname={props.roomname}
+                    >-</button>
+                </li>
+            )}
+        </CSSTransition>
+    )
+}
+
 class RoomsList extends Component{
     constructor(props) {
         super(props);
@@ -23,15 +43,13 @@ class RoomsList extends Component{
         this.props.rooms.forEach((room) => {
             room = room.trim().replace(/ /g, '_');
             list.push(
-                <li className='roomslist-item'>
-                    <a href={room}>{room}</a>
-                    <button title='delete room'
-                            onClick={this.props.deleteRoom}
-                            data-roomname={room}
-                    >-</button>
-                </li>
+                <Room show={true}
+                      roomname={room}
+                      deleteRoom={this.props.deleteRoom}
+                />
             )
         });
+        console.log(list);
         return (
             <ul className="rooms-list">
                 { list }

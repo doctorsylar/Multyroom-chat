@@ -1,0 +1,16 @@
+.room-enter {
+    opacity: 0.01;
+}
+.room-enter-active {
+    opacity: 1;
+    transition: opacity 400ms ease-out;
+}
+.room-enter-done {
+}
+.room-exit {
+    opacity: 1;
+}
+.room-exit-active {
+    opacity: 0.01;
+    transition: opacity 400ms ease-out;
+}
