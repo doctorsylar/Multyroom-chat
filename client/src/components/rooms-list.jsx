@@ -30,21 +30,13 @@ class Room extends Component{
     };
     render() {
         return (
-            <CSSTransition in={this.state.show}
-                           classNames="room"
-                           timeout={800}
-                           unmountOnExit
-            >
-                {status => (
-                    <li className='room'>
-                        <a href={this.state.name}>{this.state.name}</a>
-                        <button title='delete room'
-                                onClick={this.deleteRoom}
-                                data-roomname={this.state.name}
-                        >-</button>
-                    </li>
-                )}
-            </CSSTransition>
+            <li className='room'>
+                <a href={this.state.name}>{this.state.name}</a>
+                <button title='delete room'
+                        onClick={this.deleteRoom}
+                        data-roomname={this.state.name}
+                >-</button>
+            </li>
         )
     }
 }
@@ -53,28 +45,30 @@ class RoomsList extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            rooms: props.rooms
+            roomList: props.rooms
         }
     }
     render() {
-        let list = [];
-        if (this.state.rooms.length === 0) {
-            list = this.props.rooms;
-        }
-        else {
-            list = this.state.rooms;
-        }
+        let list = this.state.roomList;
         return (
             <TransitionGroup className="rooms-list"
                              component="ul"
             >
                 {
-                    list.map((room) => (
-                        <Room key={room}
-                          show={true}
-                          roomname={room}
-                          deleteRoom={this.props.deleteRoom}
-                        />
+                    this.props.rooms.map((room) => (
+                        <CSSTransition in={this.state.show}
+                                       classNames="room"
+                                       timeout={800}
+                                       unmountOnExit
+                        >
+                            {status => (
+                                <Room key={room}
+                                  show={true}
+                                  roomname={room}
+                                  deleteRoom={this.props.deleteRoom}
+                                />
+                            )}
+                        </CSSTransition>
                     ))
                 }
             </TransitionGroup>
