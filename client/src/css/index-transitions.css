@@ -1,16 +1,22 @@
 .room-enter {
-    opacity: 0.01;
+    opacity: 0;
+    height: 0;
+    transition: opacity 400ms ease-out, height 400ms linear;
 }
 .room-enter-active {
     opacity: 1;
-    transition: opacity 400ms ease-out;
+    height: 29px;
 }
 .room-enter-done {
+    opacity: 1;
+    height: 29px;
 }
 .room-exit {
     opacity: 1;
+    height: 29px;
+    transition: opacity 400ms ease-out, height 400ms linear;
 }
 .room-exit-active {
-    opacity: 0.01;
-    transition: opacity 400ms ease-out;
+    opacity: 0;
+    height: 0;
 }

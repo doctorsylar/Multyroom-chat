@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { CSSTransition } from 'react-transition-group';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import io from 'socket.io-client';
 
 const socket = io();
@@ -14,46 +14,70 @@ function RoomAdder (props) {
     )
 }
 
-function Room (props) {
-    return (
-        <CSSTransition in={props.show}
-                       classNames="room"
-                       timeout={800}
-                       unmountOnExit
-        >
-            {status => (
-                <li className='room'>
-                    <a href={props.roomname}>{props.roomname}</a>
-                    <button title='delete room'
-                            onClick={props.deleteRoom}
-                            data-roomname={props.roomname}
-                    >-</button>
-                </li>
-            )}
-        </CSSTransition>
-    )
+class Room extends Component{
+    constructor(props) {
+        super(props);
+        this.state = {
+            show: props.show,
+            name: props.roomname
+        }
+    }
+    deleteRoom = (event) => {
+        this.setState({
+            show: false
+        });
+        this.props.deleteRoom(event);
+    };
+    render() {
+        return (
+            <CSSTransition in={this.state.show}
+                           classNames="room"
+                           timeout={800}
+                           unmountOnExit
+            >
+                {status => (
+                    <li className='room'>
+                        <a href={this.state.name}>{this.state.name}</a>
+                        <button title='delete room'
+                                onClick={this.deleteRoom}
+                                data-roomname={this.state.name}
+                        >-</button>
+                    </li>
+                )}
+            </CSSTransition>
+        )
+    }
 }
 
 class RoomsList extends Component{
     constructor(props) {
         super(props);
+        this.state = {
+            rooms: props.rooms
+        }
     }
     render() {
         let list = [];
-        this.props.rooms.forEach((room) => {
-            room = room.trim().replace(/ /g, '_');
-            list.push(
-                <Room show={true}
-                      roomname={room}
-                      deleteRoom={this.props.deleteRoom}
-                />
-            )
-        });
-        console.log(list);
+        if (this.state.rooms.length === 0) {
+            list = this.props.rooms;
+        }
+        else {
+            list = this.state.rooms;
+        }
         return (
-            <ul className="rooms-list">
-                { list }
-            </ul>
+            <TransitionGroup className="rooms-list"
+                             component="ul"
+            >
+                {
+                    list.map((room) => (
+                        <Room key={room}
+                          show={true}
+                          roomname={room}
+                          deleteRoom={this.props.deleteRoom}
+                        />
+                    ))
+                }
+            </TransitionGroup>
         )
     }
 }
