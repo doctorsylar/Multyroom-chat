@@ -1,5 +1,6 @@
 'use strict';
-import '../dist/index.css';
+import './css/index.css';
+import './css/index-transitions.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import RoomList from './components/rooms-list';
@@ -14,10 +15,6 @@ window.onload = function () {
     // submitting username
     document.querySelector('#username-form').onsubmit = submitUsername;
 };
-
-
-// socket.io
-// let socket = io();
 
 let appRoomsList = [];
 let roomList = <RoomList rooms={appRoomsList} />;
@@ -44,11 +41,3 @@ function submitUsername(event) {
         usernameField.value = '';
     }
 }
-// function addNewChatroom(event) {
-//     event.preventDefault();
-//     let chatroom = event.target.children[0];
-//     if (chatroom.value.trim() !== '') {
-//         RoomList.prototype.addNewRoom(chatroom.value.trim());
-//     }
-//     chatroom.value = '';
-// }

@@ -63,7 +63,9 @@ class RoomsApp extends Component {
         event.preventDefault();
         let inpField = event.target.children[0];
         let inputValue = inpField.value.trim().replace(/ /g, '_');
-        if (inputValue !== '' && this.state.rooms.indexOf(inputValue) === -1) {
+        if (inputValue !== '' &&
+            inputValue.length <= 50 &&
+            this.state.rooms.indexOf(inputValue) === -1) {
             event.target.children[0].value = '';
             socket.emit('addNewRoom', inputValue,
                 (data) => {
@@ -95,8 +97,7 @@ class RoomsApp extends Component {
     render() {
         return(
             <div className="rooms-app">
-                <RoomAdder submitting={this.addNewRoom}
-                ></RoomAdder>
+                <RoomAdder submitting={this.addNewRoom} />
                 <RoomsList rooms={this.state.rooms}
                            deleteRoom={this.deleteRoom}
                 />

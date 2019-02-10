@@ -7,7 +7,7 @@ let http = require('http').createServer(app);
 let io = require('socket.io')(http);
 let port = process.env.PORT || 3000;
 // variables
-let roomsList = ['abc', 'bab123', 'bao_bab', 'k0s2-xss'];
+let roomsList = ['Main_room_1', 'Main_room_2', 'Main_room_3', 'Main_room_4'];
 
 // Routing
 app.use(express.static(path.join(__dirname, 'client/min')));
@@ -20,12 +20,12 @@ app.all('/*', function (req, res) {
     res.sendFile(path.resolve(__dirname, 'client/dist', 'room.html'));
 });
 io.on('connection', function(socket) {
-    socket.on('addNewRoom', (roomname, fn) => {
+    socket.on('addNewRoom', (roomname, fnc) => {
         console.log('client asked to add: ' + roomname);
         roomname = roomname.trim().replace(/ /g, '_');
         if (roomsList.indexOf(roomname) === -1) {
             roomsList.push(roomname);
-            fn('Success');
+            fnc('Success');
             console.log(roomsList);
             socket.broadcast.emit('roomsListChanged', roomsList);
         }
