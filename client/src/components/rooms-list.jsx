@@ -59,7 +59,6 @@ class RoomsList extends Component{
                         <CSSTransition in={this.state.show}
                                        classNames="room"
                                        timeout={800}
-                                       unmountOnExit
                         >
                             {status => (
                                 <Room key={room}
