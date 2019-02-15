@@ -74,7 +74,7 @@ class RoomsList extends Component{
         )
     }
 }
-class RoomsApp extends Component {
+class RoomsListApp extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -140,4 +140,4 @@ class RoomsApp extends Component {
         )
     }
 }
-export default RoomsApp;
+export default RoomsListApp;

@@ -9,14 +9,13 @@ let port = process.env.PORT || 3000;
 // variables
 let roomsList = ['Main_room_1', 'Main_room_2', 'Main_room_3', 'Main_room_4'];
 
-// Routing
+// Path to static files (css, js)
 app.use(express.static(path.join(__dirname, 'client/min')));
-
+// Routing
 app.all('/', function (req, res) {
     res.sendFile(path.resolve(__dirname, 'client/dist', 'index.html'));
 });
-
-app.all('/*', function (req, res) {
+app.all('/*\/', function (req, res) {
     res.sendFile(path.resolve(__dirname, 'client/dist', 'room.html'));
 });
 io.on('connection', function(socket) {
@@ -46,7 +45,6 @@ io.on('connection', function(socket) {
     });
     console.log('New connection');
 });
-
 http.listen(port, function(){
     console.log('listening on port: ' + port);
 });

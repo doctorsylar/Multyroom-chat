@@ -102,7 +102,6 @@ main #rooms-container ul {
 main #rooms-container ul .room {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 2px;
 }
 main #rooms-container ul .room a {
     text-decoration: none;

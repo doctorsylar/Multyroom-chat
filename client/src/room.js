@@ -3,7 +3,12 @@ import './css/room.css';
 import './css/room-transitions.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import RoomApp from './components/chat';
+import './js/commons';
 
-const socket = io();
 
-console.log('room');
+// JS CODE
+// variables
+
+// Rendering chat component
+ReactDOM.render(<RoomApp rooms={[]} />, document.querySelector('#rooms-container'));
