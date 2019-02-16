@@ -8,7 +8,7 @@ import './js/commons';
 
 
 // JS CODE
-// variables
 
+let username = window.sessionStorage.getItem('username') || 'Guest';
 // Rendering chat component
-ReactDOM.render(<RoomApp rooms={[]} />, document.querySelector('#rooms-container'));
+ReactDOM.render(<RoomApp username={username} />, document.querySelector('#app'));

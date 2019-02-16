@@ -7,7 +7,7 @@ module.exports = {
         room: './src/room.js'
     },
     output: {
-        path: __dirname + '/min',
+        path: __dirname + '/static/min',
         publicPath: '/',
         filename: '[name].js'
     },

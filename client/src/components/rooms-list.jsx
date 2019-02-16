@@ -100,6 +100,7 @@ class RoomsListApp extends Component {
         let inputValue = inpField.value.trim().replace(/ /g, '_');
         if (inputValue !== '' &&
             inputValue.length <= 50 &&
+            inputValue.indexOf('\/') === -1 &&
             this.state.rooms.indexOf(inputValue) === -1) {
             event.target.children[0].value = '';
             socket.emit('addNewRoom', inputValue,

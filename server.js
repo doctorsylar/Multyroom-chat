@@ -10,12 +10,12 @@ let port = process.env.PORT || 3000;
 let roomsList = ['Main_room_1', 'Main_room_2', 'Main_room_3', 'Main_room_4'];
 
 // Path to static files (css, js)
-app.use(express.static(path.join(__dirname, 'client/min')));
+app.use(express.static(path.join(__dirname, 'client/static')));
 // Routing
 app.all('/', function (req, res) {
     res.sendFile(path.resolve(__dirname, 'client/dist', 'index.html'));
 });
-app.all('/*\/', function (req, res) {
+app.all('/*', function (req, res) {
     res.sendFile(path.resolve(__dirname, 'client/dist', 'room.html'));
 });
 io.on('connection', function(socket) {

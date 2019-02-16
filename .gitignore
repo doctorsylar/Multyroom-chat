@@ -53,7 +53,8 @@ fabric.properties
 # Editor-based Rest Client
 .idea/httpRequests
 
+# Current project
 .idea/
 node_modules/
-client/min/
+client/static/min/
 package-lock.json

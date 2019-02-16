@@ -7,6 +7,6 @@ import RoomsList from './components/rooms-list';
 import './js/commons';
 
 // JS CODE
-
+let username = window.sessionStorage.getItem('username') || 'Guest';
 // Rendering RoomList component
-ReactDOM.render(<RoomsList rooms={[]} />, document.querySelector('#rooms-container'));
+ReactDOM.render(<RoomsList rooms={[]} username={username} />, document.querySelector('#rooms-container'));
