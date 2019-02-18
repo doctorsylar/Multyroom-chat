@@ -49,7 +49,7 @@ class RoomsList extends Component{
         }
     }
     render() {
-        let list = this.state.roomList;
+        // let list = this.state.roomList;
         return (
             <TransitionGroup className="rooms-list"
                              component="ul"

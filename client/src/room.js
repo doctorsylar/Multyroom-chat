@@ -10,5 +10,6 @@ import './js/commons';
 // JS CODE
 
 let username = window.sessionStorage.getItem('username') || 'Guest';
+let roomname = window.location.pathname.substr(1);
 // Rendering chat component
-ReactDOM.render(<RoomApp username={username} />, document.querySelector('#chat-room-app'));
+ReactDOM.render(<RoomApp username={username} roomname={roomname} />, document.querySelector('#chat-room-app'));

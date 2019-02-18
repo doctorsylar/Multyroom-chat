@@ -25,29 +25,95 @@ class ChatHeader extends Component {
                         <img src="./img/logo.svg" alt="AI - development"/>
                     </a>
                 </div>
-                <HeaderInfo username={this.props.username}
-                            roomname={window.location.pathname.substr(1)}
+                <HeaderInfo username={ this.props.username }
+                            roomname={ this.props.roomname }
                 />
             </header>
+        )
+    }
+}
+function Message(props) {
+    return(
+        <div className="chat_message">
+            <div className="chat_message__date">
+                { props.date }
+            </div>
+            <div className="chat_message__author">
+                { props.author + ':' }
+            </div>
+            <div className={ props.author === 'system' ?
+                'chat_message__text chat_message__text--system' : 'chat_message__text' }>
+                { props.text }
+            </div>
+        </div>
+    )
+}
+class ChatMessages extends Component {
+    constructor(props) {
+        super(props)
+    }
+    render() {
+        let messagesList = [];
+        this.props.messages.map((message) => (
+            messagesList.push(
+            <Message
+                date={ message['date'] }
+                author={ message['author'] }
+                text={ message['text'] }
+            />
+            )
+        ));
+        return (
+            <div className="chat_messages">
+                { messagesList }
+            </div>
+        )
+    }
+}
+class ChatInput extends Component {
+    constructor(props) {
+        super(props)
+    }
+    render() {
+        return (
+            <form className="chat_input" action="" onSubmit={ this.props.sendMessage }>
+                <textarea name="msg" id="msg_input" rows="5"></textarea>
+                <div className="chat_input_submit__container">
+                    <input type="submit" value="SEND"/>
+                </div>
+            </form>
         )
     }
 }
 class ChatRoomApp extends Component {
     constructor(props) {
         super(props);
+        let startTime = new Date();
+        this.state = {
+            messages: [{
+                date: startTime.getHours() + ':' + startTime.getMinutes() + ':' + startTime.getSeconds(),
+                author: 'system',
+                text: 'User ' + props.username + ' joined room ' + props.roomname
+            }],
+            username: props.username
+        }
     }
+    sendMessage = (event) => {
+
+    };
     render() {
         return (
             <div className="chat_window">
-                <ChatHeader username={this.props.username}
+                <ChatHeader username={ this.state.username }
+                            roomname={ this.props.roomname }
 
                 />
-                <div className="chat_messages">
-
-                </div>
-                <div className="chat_input">
-
-                </div>
+                <ChatMessages
+                    messages={ this.state.messages }
+                />
+                <ChatInput
+                    sendMessage={ this.sendMessage }
+                />
             </div>
         )
     }
