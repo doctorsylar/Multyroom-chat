@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import io from 'socket.io-client';
 
-const socket = io();
+const socket = io(window.location.pathname);
+console.log(window.location.pathname);
 function HeaderInfo (props) {
     return (
         <div className="header-info__container">
@@ -39,7 +40,7 @@ function Message(props) {
                 { props.date }
             </div>
             <div className="chat_message__author">
-                { props.author + ':' }
+                { props.author === 'system' ? '' : props.author + ':' }
             </div>
             <div className={ props.author === 'system' ?
                 'chat_message__text chat_message__text--system' : 'chat_message__text' }>
@@ -88,18 +89,35 @@ class ChatInput extends Component {
 class ChatRoomApp extends Component {
     constructor(props) {
         super(props);
-        let startTime = new Date();
+        let time = new Date();
         this.state = {
             messages: [{
-                date: startTime.getHours() + ':' + startTime.getMinutes() + ':' + startTime.getSeconds(),
+                date: time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds(),
                 author: 'system',
                 text: 'User ' + props.username + ' joined room ' + props.roomname
             }],
             username: props.username
         }
     }
+    componentDidMount() {
+        socket.on('newMessage', (msg) => {
+            console.log('got broadcasted event');
+            let messages = this.state.messages;
+            messages.push(msg);
+            this.setState({
+                messages: messages
+            });
+        });
+    }
     sendMessage = (event) => {
-
+        event.preventDefault();
+        let time = new Date();
+        let msg = {
+            date: time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds(),
+            author: window.sessionStorage.getItem('username'),
+            text: event.target.children[0].value
+        };
+        socket.emit('msgSent', msg);
     };
     render() {
         return (

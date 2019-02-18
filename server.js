@@ -43,7 +43,20 @@ io.on('connection', function(socket) {
         console.log('React rooms app initialized');
         fn(roomsList);
     });
+    socket.on('msgSent', (msg, fn) => {
+        console.log(msg);
+        // fn('Success');
+        socket.broadcast.emit('newMessage', msg);
+    });
+    socket.on('disconnect', (reason) => {
+        console.log(reason)
+    });
     console.log('New connection');
+    // console.log(socket);
+});
+let test = io.of('/Main_room_3');
+test.on('connection', function (socket) {
+    console.log('Test connetction')
 });
 http.listen(port, function(){
     console.log('listening on port: ' + port);

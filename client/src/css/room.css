@@ -72,7 +72,10 @@ html, body, * {
 .chat_window .chat_header {
     display: flex;
     flex-direction: column;
-    padding: 10px 5%;
+    padding: 10px calc(5% + 5px) 10px 5%;
+}
+.chat_window .chat_header .header-info__container {
+    box-shadow: 0 0 10px 7px #fff;
 }
 .chat_window .chat_header .header-info__container,
 .chat_window .chat_messages {
@@ -90,6 +93,7 @@ html, body, * {
     margin: 0 5% 10px;
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
+    padding: 5px 2px;
 }
 .chat_window .chat_messages .chat_message {
     display: flex;
