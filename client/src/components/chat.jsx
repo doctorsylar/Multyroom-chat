@@ -5,11 +5,11 @@ import io from 'socket.io-client';
 const socket = io();
 function HeaderInfo (props) {
     return (
-        <div className="header-info--container">
-            <div className="header-info--text">Roomname:</div>
-            <div className="header-info--text"><b>{ props.roomname }</b></div>
-            <div className="header-info--text">Username:</div>
-            <div className="header-info--text"><b>{ props.username }</b></div>
+        <div className="header-info__container">
+            <div className="header-info__text">Roomname:</div>
+            <div className="header-info__text"><b>{ props.roomname }</b></div>
+            <div className="header-info__text">Username:</div>
+            <div className="header-info__text"><b>{ props.username }</b></div>
         </div>
     )
 }
@@ -20,7 +20,7 @@ class ChatHeader extends Component {
     render() {
         return (
             <header className="chat_header">
-                <div className="header-logo--container">
+                <div className="header-logo__container">
                     <a href={window.location.href.substring(0, window.location.href.lastIndexOf('\/'))}>
                         <img src="./img/logo.svg" alt="AI - development"/>
                     </a>
@@ -38,10 +38,16 @@ class ChatRoomApp extends Component {
     }
     render() {
         return (
-            <div>
+            <div className="chat_window">
                 <ChatHeader username={this.props.username}
 
                 />
+                <div className="chat_messages">
+
+                </div>
+                <div className="chat_input">
+
+                </div>
             </div>
         )
     }

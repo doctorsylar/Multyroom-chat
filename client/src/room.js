@@ -11,4 +11,4 @@ import './js/commons';
 
 let username = window.sessionStorage.getItem('username') || 'Guest';
 // Rendering chat component
-ReactDOM.render(<RoomApp username={username} />, document.querySelector('#app'));
+ReactDOM.render(<RoomApp username={username} />, document.querySelector('#chat-room-app'));

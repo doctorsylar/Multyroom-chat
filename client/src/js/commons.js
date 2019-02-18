@@ -16,7 +16,6 @@ function checkUsername() {
     }
 }
 function submitUsername(event) {
-    event.preventDefault();
     let usernameField = event.target.children[0];
     if (usernameField.value.trim() !== '') {
         sessionStorage.setItem('username', usernameField.value);
