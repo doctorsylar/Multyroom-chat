@@ -3,7 +3,6 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import io from 'socket.io-client';
 
 const socket = io(window.location.pathname);
-console.log(window.location.pathname);
 function HeaderInfo (props) {
     return (
         <div className="header-info__container">
@@ -75,12 +74,19 @@ class ChatInput extends Component {
     constructor(props) {
         super(props)
     }
+    componentDidMount() {
+        document.querySelector('#msg_input').onkeydown = function (event) {
+            if (event.key === 'Enter' && event.ctrlKey) {
+                document.querySelector('.send_btn').click();
+            }
+        }
+    }
     render() {
         return (
             <form className="chat_input" action="" onSubmit={ this.props.sendMessage }>
                 <textarea name="msg" id="msg_input" rows="5"></textarea>
                 <div className="chat_input_submit__container">
-                    <input type="submit" value="SEND"/>
+                    <input className="send_btn" type="submit" value="SEND"/>
                 </div>
             </form>
         )
@@ -101,7 +107,6 @@ class ChatRoomApp extends Component {
     }
     componentDidMount() {
         socket.on('newMessage', (msg) => {
-            console.log('got broadcasted event');
             let messages = this.state.messages;
             messages.push(msg);
             this.setState({
@@ -112,12 +117,22 @@ class ChatRoomApp extends Component {
     sendMessage = (event) => {
         event.preventDefault();
         let time = new Date();
+        let inputField = event.target.children[0];
         let msg = {
             date: time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds(),
             author: window.sessionStorage.getItem('username'),
-            text: event.target.children[0].value
+            text: inputField.value
         };
-        socket.emit('msgSent', msg);
+        socket.emit('msgSent', msg, (data) => {
+            if (data === 'Success') {
+                let messages = this.state.messages;
+                messages.push(msg);
+                this.setState({
+                    messages: messages
+                });
+            }
+        });
+        inputField.value = '';
     };
     render() {
         return (

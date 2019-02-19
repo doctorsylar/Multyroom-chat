@@ -66,9 +66,6 @@ html, body, * {
     flex-direction: column;
     min-height: 100vh;
 }
-/*.chat_window {*/
-    /*background: #ffffff;*/
-/*}*/
 .chat_window .chat_header {
     display: flex;
     flex-direction: column;
@@ -99,6 +96,9 @@ html, body, * {
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
+}
+.chat_window .chat_messages .chat_message:nth-child(2n) {
+    background-color: #c0b4ff;
 }
 .chat_window .chat_messages .chat_message .chat_message__date {
     width: 60px;
@@ -131,7 +131,6 @@ html, body, * {
 .chat_window .chat_input .chat_input_submit__container {
     display: flex;
     align-items: center;
-    /*padding-left: 20px;*/
 }
 .chat_window .chat_input .chat_input_submit__container input[type=submit] {
     height: 100%;

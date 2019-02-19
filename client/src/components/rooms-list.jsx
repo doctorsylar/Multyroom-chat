@@ -49,7 +49,6 @@ class RoomsList extends Component{
         }
     }
     render() {
-        // let list = this.state.roomList;
         return (
             <TransitionGroup className="rooms-list"
                              component="ul"
@@ -88,7 +87,6 @@ class RoomsListApp extends Component {
             });
         });
         socket.on('roomsListChanged', (roomsList) => {
-            console.log('got broadcasted event');
             this.setState({
                 rooms: roomsList
             });
@@ -116,7 +114,6 @@ class RoomsListApp extends Component {
         }
     };
     deleteRoom = (event) => {
-        console.log(event.target.getAttribute('data-roomname'));
         let roomname = event.target.getAttribute('data-roomname');
         socket.emit('deleteRoom', roomname,
             (data) => {
