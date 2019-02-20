@@ -13,13 +13,21 @@ let roomObjectsList = {};
 // class for custom socket objects
 class CustomSocket {
     constructor(arg) {
+        // creating inner io instance for custom socket
         this.io = io.of(arg);
         this.io.on('connection', function (socket) {
+            // event listeners
             socket.on('msgSent', (msg, fn) => {
                 fn('Success');
                 socket.broadcast.emit('newMessage', msg);
             });
-        })
+            // actions after connection
+        });
+        this.users = [];
+        this.guestsCount = 0;
+    };
+    countUsers () {
+        return this.users.length;
     }
 }
 
@@ -32,6 +40,7 @@ app.all('/', function (req, res) {
 app.all('/*', function (req, res) {
     res.sendFile(path.resolve(__dirname, 'client/dist', 'room.html'));
 });
+
 io.on('connection', function(socket) {
     socket.on('addNewRoom', (roomname, fnc) => {
         roomname = roomname.trim().replace(/ /g, '_');
@@ -46,6 +55,7 @@ io.on('connection', function(socket) {
         let deletedIndex = roomsList.indexOf(roomname);
         if (deletedIndex !== -1) {
             roomsList.splice(deletedIndex, 1);
+            delete roomObjectsList[roomname];
             fn('Success');
             socket.broadcast.emit('roomsListChanged', roomsList);
         }

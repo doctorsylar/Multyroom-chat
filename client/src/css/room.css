@@ -3,6 +3,7 @@ html, body, * {
     padding: 0;
     box-sizing: border-box;
     color: #111111;
+    font-family: 'Lato', serif;
 }
 /* overlay */
 #overlay {
@@ -64,7 +65,7 @@ html, body, * {
     );
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    height: 100vh;
 }
 .chat_window .chat_header {
     display: flex;
@@ -101,7 +102,7 @@ html, body, * {
     background-color: #c0b4ff;
 }
 .chat_window .chat_messages .chat_message .chat_message__date {
-    width: 60px;
+    width: 70px;
 }
 .chat_window .chat_messages .chat_message .chat_message__author {
     width: 80px;

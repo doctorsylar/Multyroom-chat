@@ -84,7 +84,7 @@ class ChatInput extends Component {
     render() {
         return (
             <form className="chat_input" action="" onSubmit={ this.props.sendMessage }>
-                <textarea name="msg" id="msg_input" rows="5"></textarea>
+                <textarea name="msg" id="msg_input" rows="3"></textarea>
                 <div className="chat_input_submit__container">
                     <input className="send_btn" type="submit" value="SEND"/>
                 </div>
