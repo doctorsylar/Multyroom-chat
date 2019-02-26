@@ -34,6 +34,7 @@ class ChatHeader extends Component {
 }
 function Message(props) {
     return(
+
         <div className="chat_message">
             <div className="chat_message__date">
                 { props.date }
@@ -53,20 +54,28 @@ class ChatMessages extends Component {
         super(props)
     }
     render() {
-        let messagesList = [];
-        this.props.messages.map((message) => (
-            messagesList.push(
-            <Message
-                date={ message['date'] }
-                author={ message['author'] }
-                text={ message['text'] }
-            />
-            )
-        ));
         return (
-            <div className="chat_messages">
-                { messagesList }
-            </div>
+            <TransitionGroup className="chat_messages"
+                             component="div"
+            >
+                {
+                    this.props.messages.map((message) => (
+                        <CSSTransition in={ message.show }
+                                       classNames="chat_message"
+                                       timeout={800}
+                                       mountOnEnter={ true }
+                        >
+                            { status => (
+                                <Message
+                                    date={ message['date'] }
+                                    author={ message['author'] }
+                                    text={ message['text'] }
+                                />
+                            )}
+                        </CSSTransition>
+                    ))
+                }
+            </TransitionGroup>
         )
     }
 }

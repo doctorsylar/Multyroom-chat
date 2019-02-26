@@ -1,0 +1,17 @@
+.chat_message-enter {
+    opacity: 0;
+    transition: opacity 400ms ease-out;
+}
+.chat_message-enter-active {
+    opacity: 1;
+}
+.chat_message-enter-done {
+    opacity: 1;
+}
+.chat_message-exit {
+    opacity: 1;
+    transition: opacity 400ms ease-out;
+}
+.chat_message-exit-active {
+    opacity: 0;
+}

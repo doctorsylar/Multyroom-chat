@@ -59,7 +59,7 @@ class RoomsList extends Component{
                                        classNames="room"
                                        timeout={800}
                         >
-                            {status => (
+                            { status => (
                                 <Room key={room}
                                   show={true}
                                   roomname={room}
