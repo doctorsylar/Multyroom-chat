@@ -92,6 +92,7 @@ html, body, * {
     border-bottom-left-radius: 15px;
     border-bottom-right-radius: 15px;
     padding: 5px 2px;
+    overflow: auto;
 }
 .chat_window .chat_messages .chat_message {
     display: flex;
