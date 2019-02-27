@@ -40,7 +40,7 @@ app.all('/', function (req, res) {
 app.all('/*', function (req, res) {
     res.sendFile(path.resolve(__dirname, 'client/dist', 'room.html'));
 });
-
+// listeners for events on the index page
 io.on('connection', function(socket) {
     socket.on('addNewRoom', (roomname, fnc) => {
         roomname = roomname.trim().replace(/ /g, '_');
