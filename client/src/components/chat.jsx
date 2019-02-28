@@ -125,22 +125,24 @@ class ChatRoomApp extends Component {
     }
     sendMessage = (event) => {
         event.preventDefault();
-        let time = new Date();
         let inputField = event.target.children[0];
-        let msg = {
-            date: time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds(),
-            author: window.sessionStorage.getItem('username'),
-            text: inputField.value
-        };
-        socket.emit('msgSent', msg, (data) => {
-            if (data === 'Success') {
-                let messages = this.state.messages;
-                messages.push(msg);
-                this.setState({
-                    messages: messages
-                });
-            }
-        });
+        if (inputField.value.trim() !== '') {
+            let time = new Date();
+            let msg = {
+                date: time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds(),
+                author: window.sessionStorage.getItem('username'),
+                text: inputField.value
+            };
+            socket.emit('msgSent', msg, (data) => {
+                if (data === 'Success') {
+                    let messages = this.state.messages;
+                    messages.push(msg);
+                    this.setState({
+                        messages: messages
+                    });
+                }
+            });
+        }
         inputField.value = '';
     };
     render() {

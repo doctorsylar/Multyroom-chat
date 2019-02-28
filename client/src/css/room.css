@@ -100,7 +100,7 @@ html, body, * {
     flex-wrap: wrap;
 }
 .chat_window .chat_messages .chat_message:nth-child(2n) {
-    background-color: #c0b4ff;
+    background-color: #e1e0ff;
 }
 .chat_window .chat_messages .chat_message .chat_message__date {
     width: 70px;
