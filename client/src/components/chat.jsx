@@ -34,7 +34,6 @@ class ChatHeader extends Component {
 }
 function Message(props) {
     return(
-
         <div className="chat_message">
             <div className="chat_message__date">
                 { props.date }
@@ -107,11 +106,12 @@ class ChatRoomApp extends Component {
         let time = new Date();
         this.state = {
             messages: [{
-                date: time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds(),
+                date: formatDate(time),
                 author: 'system',
                 text: 'User ' + props.username + ' joined room ' + props.roomname
             }],
-            username: props.username
+            username: props.username,
+            usersOnline: 0
         }
     }
     componentDidMount() {
@@ -122,6 +122,11 @@ class ChatRoomApp extends Component {
                 messages: messages
             });
         });
+        socket.emit('userEntered', this.state.username, (users) => {
+            this.setState({
+                usersOnline: users
+            })
+        });
     }
     sendMessage = (event) => {
         event.preventDefault();
@@ -129,7 +134,7 @@ class ChatRoomApp extends Component {
         if (inputField.value.trim() !== '') {
             let time = new Date();
             let msg = {
-                date: time.getHours() + ':' + time.getMinutes() + ':' + time.getSeconds(),
+                date: formatDate(time),
                 author: window.sessionStorage.getItem('username'),
                 text: inputField.value
             };
@@ -161,5 +166,11 @@ class ChatRoomApp extends Component {
             </div>
         )
     }
+}
+// non-react functions
+function formatDate (date) {
+    return (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) +
+        ':' + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) +
+        ':' + (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
 }
 export default ChatRoomApp;

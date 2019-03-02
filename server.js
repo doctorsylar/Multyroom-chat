@@ -21,6 +21,15 @@ class CustomSocket {
                 fn('Success');
                 socket.broadcast.emit('newMessage', msg);
             });
+            socket.on('userEntered', (username, fn) => {
+                if (username !== 'Guest') {
+                    // console.log('id: ' + socket.id + ' username: ' + username);
+
+                }
+                else {
+
+                }
+            })
             // actions after connection
         });
         this.users = [];
