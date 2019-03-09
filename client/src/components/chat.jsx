@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
 
-const socket = io(window.location.pathname);
+// const socket = io(window.location.pathname);
 function HeaderInfo (props) {
     return (
         <div className="header-info__container">
@@ -115,14 +115,14 @@ class ChatRoomApp extends Component {
         }
     }
     componentDidMount() {
-        socket.on('newMessage', (msg) => {
+        this.props.socket.on('newMessage', (msg) => {
             let messages = this.state.messages;
             messages.push(msg);
             this.setState({
                 messages: messages
             });
         });
-        socket.emit('userEntered', this.state.username, (users) => {
+        this.props.socket.emit('userEntered', this.state.username, (users) => {
             this.setState({
                 usersOnline: users
             })
@@ -138,7 +138,7 @@ class ChatRoomApp extends Component {
                 author: window.sessionStorage.getItem('username'),
                 text: inputField.value
             };
-            socket.emit('msgSent', msg, (data) => {
+            this.props.socket.emit('msgSent', msg, (data) => {
                 if (data === 'Success') {
                     let messages = this.state.messages;
                     messages.push(msg);

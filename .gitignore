@@ -56,7 +56,5 @@ fabric.properties
 # Current project
 .idea/
 node_modules/
-client/static/min/*
-# client/**/min/
-package-lock.json
 min/
+package-lock.json
