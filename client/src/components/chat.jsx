@@ -10,6 +10,8 @@ function HeaderInfo (props) {
             <div className="header-info__text"><b>{ props.roomname }</b></div>
             <div className="header-info__text">Username:</div>
             <div className="header-info__text"><b>{ props.username }</b></div>
+            <div className="header-info__text">Online:</div>
+            <div className="header-info__text"><b>{ props.online }</b></div>
         </div>
     )
 }
@@ -27,6 +29,7 @@ class ChatHeader extends Component {
                 </div>
                 <HeaderInfo username={ this.props.username }
                             roomname={ this.props.roomname }
+                            online={ this.props.online }
                 />
             </header>
         )
@@ -110,8 +113,7 @@ class ChatRoomApp extends Component {
                 author: 'system',
                 text: 'User ' + props.username + ' joined room ' + props.roomname
             }],
-            username: props.username,
-            usersOnline: 0
+            username: props.username
         }
     }
     componentDidMount() {
@@ -122,6 +124,12 @@ class ChatRoomApp extends Component {
                 messages: messages
             });
         });
+        this.props.socket.on('userCountChanged', (count) => {
+            this.setState({
+                usersOnline: count
+            });
+        });
+        // emitting after initialization
         this.props.socket.emit('userEntered', this.state.username, (users) => {
             this.setState({
                 usersOnline: users
@@ -155,6 +163,7 @@ class ChatRoomApp extends Component {
             <div className="chat_window">
                 <ChatHeader username={ this.state.username }
                             roomname={ this.props.roomname }
+                            online={this.state.usersOnline}
 
                 />
                 <ChatMessages

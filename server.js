@@ -13,27 +13,35 @@ let roomObjectsList = {};
 // class for custom socket objects
 class CustomSocket {
     constructor(arg) {
+        // vars
+        this.users = 0;
+        this.userSockets = [];
+        this.leavingSockets = [];
+
         // creating inner io instance for custom socket
         this.io = io.of(arg);
-        this.io.on('connection', function (socket) {
+        this.io.on('connection', (socket) => {
             // event listeners
             socket.on('msgSent', (msg, fn) => {
                 fn('Success');
                 socket.broadcast.emit('newMessage', msg);
             });
             socket.on('userEntered', (username, fn) => {
-                if (username !== 'Guest') {
-                    // console.log('id: ' + socket.id + ' username: ' + username);
-
-                }
-                else {
-
-                }
+                this.io.clients((error, clients) => {
+                    if (error) throw error;
+                    // console.log(clients.length);
+                    this.users = clients.length;
+                });
+                // console.log(this);
+                fn(this.users);
+                socket.broadcast.emit('userCountChanged', this.users);
+            });
+            // on disconnect
+            socket.on('disconnect', () => {
+                console.log('user disconnected');
             })
             // actions after connection
         });
-        this.users = [];
-        this.guestsCount = 0;
     };
     countUsers () {
         return this.users.length;
