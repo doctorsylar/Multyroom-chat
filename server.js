@@ -15,8 +15,8 @@ class CustomSocket {
     constructor(arg) {
         // vars
         this.users = 0;
-        this.userSockets = [];
-        this.leavingSockets = [];
+        this.userSockets = {};
+        this.leavingUsers = [];
 
         // creating inner io instance for custom socket
         this.io = io.of(arg);
@@ -29,16 +29,35 @@ class CustomSocket {
             socket.on('userEntered', (username, fn) => {
                 this.io.clients((error, clients) => {
                     if (error) throw error;
-                    // console.log(clients.length);
+                    if (this.leavingUsers.indexOf(username) === -1) {
+                        // console.log('user connected: ' + username);
+                        socket.broadcast.emit('newUser', username);
+                    }
+                    else {
+                        // console.log('user REconnected: ' + username);
+                    }
                     this.users = clients.length;
+                    this.userSockets[socket.id] = username;
+                    fn(this.users);
+                    socket.broadcast.emit('userCountChanged', this.users);
+                    // console.log(this.userSockets);
+                    // console.log(this.leavingUsers);
                 });
-                // console.log(this);
-                fn(this.users);
-                socket.broadcast.emit('userCountChanged', this.users);
             });
             // on disconnect
-            socket.on('disconnect', () => {
-                console.log('user disconnected');
+            socket.on('disconnect', (info) => {
+                this.users--;
+                // console.log(this.users);
+                this.io.emit('userCountChanged', this.users);
+                let disconnectedUsername = this.userSockets[socket.id];
+                // console.log('user disconnected:' + disconnectedUsername);
+                this.leavingUsers.push(disconnectedUsername);
+                delete this.userSockets[socket.id];
+                setTimeout(() => {
+                    while (this.leavingUsers.indexOf(disconnectedUsername) !== -1) {
+                        this.leavingUsers.splice(this.leavingUsers.indexOf(disconnectedUsername), 1);
+                    }
+                }, 500);
             })
             // actions after connection
         });
@@ -82,7 +101,7 @@ io.on('connection', function(socket) {
     });
 });
 http.listen(port, function(){
-    console.log('listening on port: ' + port);
+    // console.log('listening on port: ' + port);
 });
 // creating socket objects for rooms which exists at app's start
 for (let room of roomsList) {

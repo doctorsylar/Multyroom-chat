@@ -125,8 +125,17 @@ class ChatRoomApp extends Component {
             });
         });
         this.props.socket.on('userCountChanged', (count) => {
+            // console.log(count);
             this.setState({
                 usersOnline: count
+            });
+        });
+        this.props.socket.on('newUser', (username) => {
+            let time = new Date();
+            let msgs = this.state.messages.push({
+                date: formatDate(time),
+                author: 'system',
+                text: 'User ' + username + ' joined room ' + this.props.roomname
             });
         });
         // emitting after initialization
