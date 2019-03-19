@@ -101,7 +101,7 @@ io.on('connection', function(socket) {
     });
 });
 http.listen(port, function(){
-    // console.log('listening on port: ' + port);
+    console.log('listening on port: ' + port);
 });
 // creating socket objects for rooms which exists at app's start
 for (let room of roomsList) {
