@@ -105,7 +105,7 @@ http.listen(port, function(){
 });
 // creating socket objects for rooms which exists at app's start
 for (let room of roomsList) {
-    roomObjectsList[room] = createCustomSocket('/' + room)
+    roomObjectsList[room] = createCustomSocket('/' + room);
 }
 // functions
 function createCustomSocket(namespace) {
